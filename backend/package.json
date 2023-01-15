@@ -1,0 +1,28 @@
+{
+  "name": "location-voiture-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon start.js",
+    "dev": "nodemon start.js",
+    "prod": "node start.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oussama-cherif/location-voiture.git"
+  },
+  "author": "oussama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oussama-cherif/location-voiture/issues"
+  },
+  "homepage": "https://github.com/oussama-cherif/location-voiture#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3",
+    "nodemon": "^2.0.20"
+  }
+}
