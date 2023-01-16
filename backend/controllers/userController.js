@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 exports.createUser = (req, res) => {
     // Extract the user data from the request body
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
     // Validate the user data
     if (!username || !password) {
         return res.status(400).json({
@@ -11,7 +11,7 @@ exports.createUser = (req, res) => {
         });
     }
     // Create a new user with the data from the request body
-    const newUser = new User({username, password});
+    const newUser = new User({username, password, role});
     // Save the user to the database
     newUser.save((err, user) => {
         if(err) {

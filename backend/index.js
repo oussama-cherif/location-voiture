@@ -1,13 +1,22 @@
 const express = require('express');
+const morgan = require('morgan')
 const path = require('path');
-const bodyParser = require('body-parser');;
-const checkAdmin = require('./middleware/checkAdmin')
+const bodyParser = require('body-parser');
+const connectToDb = require('./database/Connection');
+const cors = require('cors');
+const checkAdmin = require('./middleware/checkAdmin');
 
 const app = express();
+require('dotenv').config();
 
-const connectToDb = require('./database/Connection');
+
+
+// middleware
+app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(bodyParser.json())
-port=4000
+
 
 const controllersPath = path.join(__dirname, 'controllers');
 
@@ -21,8 +30,8 @@ app.get('/', (req, res) => {
 connectToDb()
   .then(() => {
     // connection successful
-    app.listen(`${port}`, () => {
-        console.log(`Server is running on port ${port}`);
+    app.listen(process.env.port, () => {
+        console.log(`Server is running on port 4000`);
     });
   })
   .catch((err) => {
@@ -43,6 +52,7 @@ app.get('/admin/dashboard', checkAdmin, (req, res) => {
     res.send('Welcome to the other admin page');
 });
 
-app.post('/cars', checkAdmin, carController.addCar);
+app.post('/cars', carController.addCar);
+app.get('/cars', carController.getAllCars);
 app.put('/cars/:id', checkAdmin, carController.modifyCar);
 app.delete('/cars/:id', checkAdmin, carController.deleteCar);

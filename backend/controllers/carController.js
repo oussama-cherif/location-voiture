@@ -39,3 +39,17 @@ exports.deleteCar = (req, res) => {
         return res.status(200).send({ message: 'Car deleted successfully.' });
     });
 };
+
+exports.getAllCars = (req, res) => {
+    Car.find((err, cars) => {
+        if(err) {
+            return res.status(400).json({
+                message: "Error getting cars",
+                error: err
+            });
+        }
+        return res.status(200).json({
+            cars: cars
+        });
+    });
+};
